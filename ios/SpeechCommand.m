@@ -7,9 +7,4 @@ RCT_EXTERN_METHOD(initialize)
 RCT_EXTERN_METHOD(stopClassifier)
 RCT_EXTERN_METHOD(startClassifier)
 
-+ (BOOL)requiresMainQueueSetup
-{
-  return NO;
-}
-
 @end

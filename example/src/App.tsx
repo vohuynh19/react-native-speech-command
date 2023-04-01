@@ -42,7 +42,7 @@ export default function App() {
   };
 
   const checkPermission = (callback: any) => {
-    request(PERMISSIONS.ANDROID.RECORD_AUDIO).then((result) => {
+    request(PERMISSIONS.IOS.MICROPHONE).then((result) => {
       if (result === RESULTS.GRANTED) {
         callback();
       } else {
@@ -52,8 +52,19 @@ export default function App() {
     });
   };
 
+  const handleTest = () => {
+    getInstance().test();
+  };
+
+  const loopTimer = () => {
+    getInstance().loopTimer();
+  };
+
   return (
     <View style={styles.container}>
+      <Button title="Test" onPress={handleTest} />
+      <Button title="Loop" onPress={loopTimer} />
+
       <Button title="Init" onPress={handleInit} />
       <Button title="Start" onPress={handleStart} />
       <Button title="Stop" onPress={handleStop} />

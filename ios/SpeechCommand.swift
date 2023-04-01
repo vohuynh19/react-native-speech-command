@@ -1,8 +1,13 @@
 import TensorFlowLiteTaskAudio
 
-struct Result {
-  let inferenceTime: Double
-  let categories: [ClassificationCategory]
+struct Category: Codable{
+    let label: String
+    let score: Float
+}
+
+struct Result: Codable {
+    let inferenceTime: Double
+    let categories: [Category]
 }
 
 enum ModelType: String {
@@ -38,6 +43,7 @@ class SpeechCommand: RCTEventEmitter {
     
     @objc
     func initialize() {
+        print("initialize")
         if let bundleIdentifier = Bundle.main.bundleIdentifier {
             let components = bundleIdentifier.components(separatedBy: ".")
             if components.count >= 3 {
@@ -74,6 +80,7 @@ class SpeechCommand: RCTEventEmitter {
     
     @objc
     func stopClassifier() {
+        print("stopClassifier")
         audioRecord?.stop()
         timer?.invalidate()
         timer = nil
@@ -81,6 +88,7 @@ class SpeechCommand: RCTEventEmitter {
     
     @objc
     func startClassifier() {
+        print("startClassifier")
         if overlap < 0 {
           let error = NSError(
             domain: errorDomain,
@@ -102,33 +110,47 @@ class SpeechCommand: RCTEventEmitter {
           let audioFormat = inputAudioTensor?.audioFormat
           let lengthInMilliSeconds =
             Double(inputAudioTensor!.bufferSize)  / Double(audioFormat!.sampleRate)
-          let interval = lengthInMilliSeconds * Double(1 - overlap)
-          timer?.invalidate()
-
-          timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) {
-            [weak self] _ in
-            self?.processQueue.async {
-              self?.runClassification()
-            }
-          }
+            let interval = lengthInMilliSeconds * Double(1 - overlap)
+            DispatchQueue.main.async(execute: {
+                self.timer?.invalidate()
+                self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) {
+                    [weak self] _ in
+                    self?.processQueue.async {
+                        self?.runClassification()
+                    }
+                }
+            })
         } catch {
             sendEvent(withName: "onError", body: error)
         }
       }
     
     private func runClassification() {
+        print("Swift is powerful")
         let startTime = Date().timeIntervalSince1970
         do {
           try inputAudioTensor?.load(audioRecord: audioRecord!)
           let results = try classifier?.classify(audioTensor: inputAudioTensor!)
           let inferenceTime = Date().timeIntervalSince1970 - startTime
-
-          DispatchQueue.main.async {
+            
+          let categories = results?.classifications[0].categories.map { category -> Category in
+            let label = category.label ?? ""
+            let score = category.score
+            return Category(label: label, score: score)
+          }
+            
             let result = Result(
               inferenceTime: inferenceTime,
-              categories: (results?.classifications[0].categories)!)
-              self.sendEvent(withName: "onResults", body: result)
-          }
+              categories: categories!
+            )
+            let encoder = JSONEncoder()
+            encoder.nonConformingFloatEncodingStrategy = .convertToString(positiveInfinity: "Infinity", negativeInfinity: "-Infinity", nan: "NaN")
+            
+            let jsonData = try! encoder.encode(result)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            self.sendEvent(withName: "onResults", body: jsonString)
+            
         } catch {
           sendEvent(withName: "onError", body: error)
         }
@@ -136,5 +158,10 @@ class SpeechCommand: RCTEventEmitter {
     
     override func supportedEvents() -> [String]! {
         return ["onResults", "onError"]
+    }
+    
+    @objc
+    static override func requiresMainQueueSetup() -> Bool {
+        return true
     }
 }

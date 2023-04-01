@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3BBDFD468A8A178F3456CA29 /* libPods-SpeechCommandExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBF30532BB0B2066F4BFD27 /* libPods-SpeechCommandExample.a */; };
+		419B929F29D89F0D0050B25A /* speech_commands.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 419B929E29D89F0C0050B25A /* speech_commands.tflite */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A3CEA8B826175311134C895E /* libPods-SpeechCommandExample-SpeechCommandExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85415CD3DD8CA075AD3C7C3D /* libPods-SpeechCommandExample-SpeechCommandExampleTests.a */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SpeechCommandExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SpeechCommandExample/main.m; sourceTree = "<group>"; };
 		3184F1975F7B7BE531DEFBEE /* Pods-SpeechCommandExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechCommandExample.release.xcconfig"; path = "Target Support Files/Pods-SpeechCommandExample/Pods-SpeechCommandExample.release.xcconfig"; sourceTree = "<group>"; };
+		419B929E29D89F0C0050B25A /* speech_commands.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = speech_commands.tflite; sourceTree = "<group>"; };
 		4ED3CF1CDC8C39E5394BF305 /* Pods-SpeechCommandExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechCommandExample.debug.xcconfig"; path = "Target Support Files/Pods-SpeechCommandExample/Pods-SpeechCommandExample.debug.xcconfig"; sourceTree = "<group>"; };
 		4FBF30532BB0B2066F4BFD27 /* libPods-SpeechCommandExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeechCommandExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AC2BC78C587BA115C37BC23 /* Pods-SpeechCommandExample-SpeechCommandExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechCommandExample-SpeechCommandExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-SpeechCommandExample-SpeechCommandExampleTests/Pods-SpeechCommandExample-SpeechCommandExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				419B929E29D89F0C0050B25A /* speech_commands.tflite */,
 				13B07FAE1A68108700A75B9A /* SpeechCommandExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SpeechCommandExampleTests */,
@@ -242,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419B929F29D89F0D0050B25A /* speech_commands.tflite in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);

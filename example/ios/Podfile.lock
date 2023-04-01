@@ -331,6 +331,7 @@ PODS:
     - glog
   - react-native-speech-command (0.1.0):
     - React-Core
+    - TensorFlowLiteTaskAudio
   - React-perflogger (0.71.5)
   - React-RCTActionSheet (0.71.5):
     - React-Core/RCTActionSheetHeaders (= 0.71.5)
@@ -415,7 +416,10 @@ PODS:
     - React-jsi (= 0.71.5)
     - React-logger (= 0.71.5)
     - React-perflogger (= 0.71.5)
+  - RNPermissions (3.8.0):
+    - React-Core
   - SocketRocket (0.6.0)
+  - TensorFlowLiteTaskAudio (0.4.3)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -480,6 +484,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -498,6 +503,7 @@ SPEC REPOS:
     - libevent
     - OpenSSL-Universal
     - SocketRocket
+    - TensorFlowLiteTaskAudio
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -569,6 +575,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -606,7 +614,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 1579bf3207afadc72ac3638a66a102d1bf5263e3
   React-jsinspector: 14a342151ab810862998dfc99e2720746734e9b3
   React-logger: 94ec392ae471683635e4bf874d4e82f675399d2d
-  react-native-speech-command: e3ddf8c5e62451a821ee51cb2cfcec8cb2838927
+  react-native-speech-command: 067c8885a3ed1581dc8305dd5562d2dd4d2f89e8
   React-perflogger: 883a55a9a899535eaf06d0029108ef9ef22cce92
   React-RCTActionSheet: 1a3b8416688a3d291367be645022886f71d6842a
   React-RCTAnimation: e5560cb72d91ba35151d51e2eb0d467b42763f43
@@ -620,7 +628,9 @@ SPEC CHECKSUMS:
   React-RCTVibration: f0f5ad6417803de42e022d99247a6b1ddaf46c13
   React-runtimeexecutor: 511f4301d85daf85abface9afb8d2df2d49f87d3
   ReactCommon: 4f43b72066f27bfe1f63838c61763f59e7112536
+  RNPermissions: 5921440e940be2d8db7b05d6e382bb1324bb8111
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  TensorFlowLiteTaskAudio: c712928d24d194fc6a461d7894aff29392eb0872
   Yoga: cd7d7f509dbfac14ee7f31a6c750acb957cd5022
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

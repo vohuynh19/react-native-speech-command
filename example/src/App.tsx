@@ -1,18 +1,62 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-speech-command';
+import {
+  StyleSheet,
+  View,
+  Button,
+  NativeEventEmitter,
+  Linking,
+} from 'react-native';
+import { getInstance } from 'react-native-speech-command';
+
+import { PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    const eventEmitter = new NativeEventEmitter(getInstance());
+
+    const subscription = eventEmitter.addListener('onResults', (event) => {
+      console.log('event', event);
+    });
+
+    const errorSub = eventEmitter.addListener('onError', (event) => {
+      console.log('event', event);
+    });
+
+    return () => {
+      subscription.remove();
+      errorSub.remove();
+    };
   }, []);
+
+  const handleInit = () => {
+    checkPermission(() => getInstance().initialize());
+  };
+
+  const handleStart = () => {
+    checkPermission(() => getInstance().startClassifier());
+  };
+
+  const handleStop = () => {
+    checkPermission(() => getInstance().stopClassifier());
+  };
+
+  const checkPermission = (callback: any) => {
+    request(PERMISSIONS.ANDROID.RECORD_AUDIO).then((result) => {
+      if (result === RESULTS.GRANTED) {
+        callback();
+      } else {
+        console.log('Permission denied');
+        Linking.openSettings();
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Button title="Init" onPress={handleInit} />
+      <Button title="Start" onPress={handleStart} />
+      <Button title="Stop" onPress={handleStop} />
     </View>
   );
 }

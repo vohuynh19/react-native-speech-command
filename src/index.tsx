@@ -17,6 +17,6 @@ const SpeechCommand = NativeModules.SpeechCommand
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return SpeechCommand.multiply(a, b);
+export function getInstance() {
+  return SpeechCommand;
 }

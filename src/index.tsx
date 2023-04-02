@@ -29,7 +29,10 @@ type Category = {
   score: number;
 };
 
-const eventEmitter = new NativeEventEmitter();
+const eventEmitter =
+  Platform.OS === 'ios'
+    ? new NativeEventEmitter(SpeechCommand)
+    : new NativeEventEmitter();
 
 const eventGarbageCollector: EmitterSubscription[] = [];
 

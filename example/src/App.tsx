@@ -1,48 +1,31 @@
 import * as React from 'react';
-
-import {
-  StyleSheet,
-  View,
-  Button,
-  NativeEventEmitter,
-  Linking,
-} from 'react-native';
-import { getInstance } from 'react-native-speech-command';
-
+import { StyleSheet, View, Button, Linking, Platform } from 'react-native';
+import SpeechCommand from 'react-native-speech-command';
 import { PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 
 export default function App() {
   React.useEffect(() => {
-    const eventEmitter = new NativeEventEmitter(getInstance());
+    SpeechCommand.init();
 
-    const subscription = eventEmitter.addListener('onResults', (event) => {
-      console.log('event', event);
-    });
+    setTimeout(() => {
+      SpeechCommand.addResultListener((result) => {
+        console.log('addResultListener', result);
+      });
 
-    const errorSub = eventEmitter.addListener('onError', (event) => {
-      console.log('event', event);
-    });
-
-    return () => {
-      subscription.remove();
-      errorSub.remove();
-    };
+      SpeechCommand.addErrorListener((error) => {
+        console.error('addErrorListener', error);
+      });
+    }, 1000);
   }, []);
 
-  const handleInit = () => {
-    checkPermission(() => getInstance().initialize());
-  };
-
-  const handleStart = () => {
-    checkPermission(() => getInstance().startClassifier());
-  };
-
-  const handleStop = () => {
-    checkPermission(() => getInstance().stopClassifier());
-  };
-
   const checkPermission = (callback: any) => {
-    request(PERMISSIONS.IOS.MICROPHONE).then((result) => {
+    const permission =
+      Platform.select({
+        ios: PERMISSIONS.IOS.MICROPHONE,
+        android: PERMISSIONS.ANDROID.RECORD_AUDIO,
+      }) || PERMISSIONS.IOS.MICROPHONE;
+
+    request(permission).then((result) => {
       if (result === RESULTS.GRANTED) {
         callback();
       } else {
@@ -52,20 +35,16 @@ export default function App() {
     });
   };
 
-  const handleTest = () => {
-    getInstance().test();
+  const handleStart = () => {
+    checkPermission(() => SpeechCommand.start());
   };
 
-  const loopTimer = () => {
-    getInstance().loopTimer();
+  const handleStop = () => {
+    checkPermission(() => SpeechCommand.stop());
   };
 
   return (
     <View style={styles.container}>
-      <Button title="Test" onPress={handleTest} />
-      <Button title="Loop" onPress={loopTimer} />
-
-      <Button title="Init" onPress={handleInit} />
       <Button title="Start" onPress={handleStart} />
       <Button title="Stop" onPress={handleStop} />
     </View>

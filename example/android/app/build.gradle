@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: 'de.undercouch.download'
 
 import com.android.build.OutputFile
 
@@ -147,6 +148,12 @@ android {
         }
     }
 }
+
+
+// import DownloadModels task
+project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
+project.ext.TEST_ASSET_DIR = projectDir.toString() + '/src/androidTest/assets'
+apply from:'download_model.gradle'
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin

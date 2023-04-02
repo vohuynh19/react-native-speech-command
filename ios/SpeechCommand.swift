@@ -43,7 +43,6 @@ class SpeechCommand: RCTEventEmitter {
     
     @objc
     func initialize() {
-        print("initialize")
         if let bundleIdentifier = Bundle.main.bundleIdentifier {
             let components = bundleIdentifier.components(separatedBy: ".")
             if components.count >= 3 {
@@ -79,16 +78,14 @@ class SpeechCommand: RCTEventEmitter {
     }
     
     @objc
-    func stopClassifier() {
-        print("stopClassifier")
+    func stop() {
         audioRecord?.stop()
         timer?.invalidate()
         timer = nil
     }
     
     @objc
-    func startClassifier() {
-        print("startClassifier")
+    func start() {
         if overlap < 0 {
           let error = NSError(
             domain: errorDomain,
@@ -126,7 +123,6 @@ class SpeechCommand: RCTEventEmitter {
       }
     
     private func runClassification() {
-        print("Swift is powerful")
         let startTime = Date().timeIntervalSince1970
         do {
           try inputAudioTensor?.load(audioRecord: audioRecord!)

@@ -1,7 +1,7 @@
 {
   "name": "react-native-speech-command",
-  "version": "0.1.1",
-  "description": "test",
+  "version": "0.1.2",
+  "description": "React Native module for speech command classification.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",

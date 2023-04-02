@@ -145,7 +145,7 @@ class SpeechCommand: RCTEventEmitter {
             let jsonData = try! encoder.encode(result)
             let jsonString = String(data: jsonData, encoding: .utf8)!
             print(jsonString)
-            self.sendEvent(withName: "onResults", body: jsonString)
+            self.sendEvent(withName: "onResult", body: jsonString)
             
         } catch {
           sendEvent(withName: "onError", body: error)
@@ -153,7 +153,7 @@ class SpeechCommand: RCTEventEmitter {
       }
     
     override func supportedEvents() -> [String]! {
-        return ["onResults", "onError"]
+        return ["onResult", "onError"]
     }
     
     @objc

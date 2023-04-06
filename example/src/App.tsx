@@ -5,8 +5,6 @@ import { PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 
 export default function App() {
   React.useEffect(() => {
-    SpeechCommand.init();
-
     setTimeout(() => {
       SpeechCommand.addResultListener((result) => {
         console.log('addResultListener', result);
@@ -45,6 +43,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Button title="Init" onPress={() => SpeechCommand.init()} />
       <Button title="Start" onPress={handleStart} />
       <Button title="Stop" onPress={handleStop} />
     </View>
@@ -56,7 +55,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
   },
   box: {
     width: 60,

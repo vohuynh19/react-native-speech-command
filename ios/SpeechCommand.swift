@@ -1,4 +1,5 @@
 import TensorFlowLiteTaskAudio
+import AVFoundation
 
 struct Category: Codable{
     let label: String
@@ -71,6 +72,7 @@ class SpeechCommand: RCTEventEmitter {
           classifier = try AudioClassifier.classifier(options: classifierOptions)
           audioRecord = try classifier?.createAudioRecord()
           inputAudioTensor = classifier?.createInputAudioTensor()
+          print("Initialize success!")
         } catch {
           print("Failed to create the classifier with error: \(error.localizedDescription)")
           return
@@ -100,9 +102,17 @@ class SpeechCommand: RCTEventEmitter {
             userInfo: [NSLocalizedDescriptionKey: "overlap must be smaller than 1."])
             sendEvent(withName: "onError", body: error)
         }
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setActive(true)
+        } catch {
+            print("Error setting up audio recording: \(error.localizedDescription)")
+            return
+        }
 
         do {
-            
           try audioRecord?.startRecording()
           let audioFormat = inputAudioTensor?.audioFormat
           let lengthInMilliSeconds =
